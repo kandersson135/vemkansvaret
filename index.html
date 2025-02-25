@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="sv">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+  <link rel="icon" type="image/png" sizes="32x32" href="img/favicon.png">
+  <link rel="shortcut icon" href="img/favicon.ico">
+  <title>Vem vet mest?</title>
+
+  <!-- css -->
+  <link rel="stylesheet" type="text/css" href="css/main.css">
+</head>
+<body>
+  <div class="container">
+    <h1>Vem vet mest?</h1>
+    <div class="question-box">Tryck på "Nästa fråga" för att börja!</div>
+    <div class="answer"></div>
+    <button id="new-question">Nästa fråga</button>
+
+    <h2>Tävlande</h2>
+    <div class="teams" id="teams"></div>
+    <input type="text" id="team-name" placeholder="Lägg till nytt lag">
+    <button id="add-team">Lägg till lag</button>
+
+    <input type="file" id="file-input" accept=".txt" style="display: none;">
+    <button id="load-questions">Ladda in frågor</button>
+  </div>
+
+  <div id="version-info">Version: 0.0.2</div>
+
+  <ul id="bottom-menu">
+    <li><a href="#" id="helpButton">Hjälp</a></li>
+    <li><a href="#" id="aboutButton">Om</a></li>
+    <li><span id="email"></span></li>
+  </ul>
+
+  <!-- js -->
+  <script src="js/jquery-3.6.0.min.js"></script>
+  <script src="js/sweetalert.min.js"></script>
+  <script src="js/main.js"></script>
+</body>
+</html>

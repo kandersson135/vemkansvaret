@@ -1,0 +1,177 @@
+/* import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Open+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;1,300;1,400;1,500;1,600;1,700;1,800&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poetsen+One&display=swap');
+
+body {
+  animation: 90s linear 0s normal none infinite animate;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  background-color: #1e1e2e;
+  background-image: url("data:image/svg+xml,%3Csvg width='80' height='80' viewBox='0 0 80 80' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231c1c2a' fill-opacity='0.4'%3E%3Cpath d='M50 50c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10s-10-4.477-10-10 4.477-10 10-10zM10 10c0-5.523 4.477-10 10-10s10 4.477 10 10-4.477 10-10 10c0 5.523-4.477 10-10 10S0 25.523 0 20s4.477-10 10-10zm10 8c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8zm40 40c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z' /%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+  color: white;
+}
+
+/* animate bg */
+@keyframes animate {
+	from {background-position:bottom left;}
+	to {background-position: top right;}
+}
+
+h1 {
+  font-family: "Poetsen One", serif;
+  text-transform: uppercase;
+  position: absolute;
+  top: 0px;
+  left: 20px;
+}
+
+.container {
+  max-width: 600px;
+  margin: auto;
+  padding: 20px;
+}
+
+.question-box {
+  font-size: 24px;
+  margin: 100px 0 20px 0;
+  padding: 20px;
+  border-radius: 10px;
+  background-color: #ffcc00;
+  color: black;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.answer {
+  display: none;
+  margin-top: 10px;
+  font-size: 20px;
+  color: #ffcc00;
+}
+
+/* .teams {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: nowrap;
+  justify-content: flex-start;
+  gap: 10px;
+  overflow-x: auto;
+}
+
+.team {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #282a36;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  min-width: 150px;
+  cursor: pointer;
+} */
+
+.teams {
+  margin: 20px 0;
+  display: flex;
+  flex-wrap: wrap; /* Ändra till 'wrap' för att tillåta radbrytning */
+  justify-content: flex-start;
+  gap: 10px;
+  overflow-x: auto; /* Behåll om du vill att den ska vara scrollbar horisontellt */
+}
+
+.team {
+  padding: 10px;
+  border-radius: 8px;
+  background-color: #282a36;
+  color: white;
+  font-size: 18px;
+  text-align: center;
+  min-width: 172px;
+  max-width: 172px;
+  cursor: pointer;
+}
+
+button {
+  margin: 10px;
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #ffcc00;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+}
+
+button:hover {
+  background-color: #e6b800;
+}
+
+input {
+  font-family: 'Open Sans', sans-serif;
+  padding: 8px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: none;
+}
+
+#load-questions {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+}
+
+/* version info */
+#version-info {
+  bottom: 5px;
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 8px;
+  position: absolute;
+  left: 10px;
+}
+
+#bottom-menu {
+  position: absolute;
+  bottom: 5px;
+  right: 10px;
+  margin: 0;
+}
+
+#bottom-menu li {
+  display: inline;
+  margin-right: 5px;
+}
+
+#bottom-menu li a {
+  color: rgba(255, 255, 255, 0.2);
+  font-size: 10px;
+  text-decoration: none;
+}
+
+/* modal box */
+.swal-modal {
+  background: #282a36;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-radius: 10px;
+}
+
+.swal-title {
+  color: #fff;
+}
+
+.swal-text {
+  color: #fff;
+  font-size: 18px;
+}
+
+.swal-button {
+	background: #ffcc00;
+  border-radius: 5px;
+  color: #000;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: bold;
+  font-size: 18px;
+  padding: 5px 20px;
+}
+.swal-button:focus {box-shadow:none;}
+.swal-button:hover {background-color: #e6b800 !important;}
+.swal-button:active {background-color: #e6b800; box-shadow:none; position:relative; top:2px;}
