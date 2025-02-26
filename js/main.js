@@ -103,10 +103,38 @@ $("#email").html('<a href="mailto:' + emailAddress + '">Kontakt</a>');
 
 // Help btn click
 $('#helpButton').on('click', function() {
-  swal("Hjälp", "Lägg till tävlande genom att trycka på 'Lägg till'-knappen. Tryck på ett lagnamn för att ta bort det från listan.\n\nLadda upp dina egna frågor och svar från ett textdokument. Dokumentet ska vara formaterat så här:\n\nFråga\nSvar\nFråga\nSvar\n...\n\n Varje fråga och svar ska skrivas på en egen rad utan extra mellanrum.");
+  var helphtml = document.createElement("div");
+  helphtml.style.textAlign = "left";
+  helphtml.innerHTML = `
+    <p>Lägg till tävlande genom att trycka på <strong>'Lägg till'</strong>-knappen.
+    Tryck på ett lagnamn för att ta bort det från listan.</p>
+
+    <p>Ladda upp egna frågor och svar från ett textdokument. Dokumentet ska vara
+    formaterat så att varje fråga och svar skrivs på en egen rad utan extra mellanrum:</p>
+
+    <pre>Fråga<br>Svar<br>Fråga<br>Svar<br>...</pre>
+  `;
+
+  swal({
+    title: "Hjälp",
+    content: helphtml
+  });
 });
 
 // About btn click
 $('#aboutButton').on('click', function() {
-  swal("Om webbappen", "Webbappen är fortfarande under utveckling, men går att testa. Hör av dig om du har några funderingar. \n\n Webbappen är skapad av Kim Andersson (kimandesson.se)");
+  var abouthtml = document.createElement("div");
+  abouthtml.style.textAlign = "left"; // Vänsterjusterar texten
+  abouthtml.innerHTML = `
+    <p>Webbplatsen är fortfarande under utveckling, men går att testa.
+    Hör av dig om du har några funderingar.</p>
+
+    <p>Webbplatsen är skapad av
+    <a href="https://kimandesson.se" target="_blank">Kim Andersson</a>.</p>
+  `;
+
+  swal({
+    title: "Om webbplatsen",
+    content: abouthtml
+  });
 });
