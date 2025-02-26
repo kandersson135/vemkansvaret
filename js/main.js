@@ -131,7 +131,7 @@ $('#aboutButton').on('click', function() {
     Hör av dig om du har några funderingar.</p>
 
     <p>Webbplatsen är skapad av
-    <a href="https://kimandesson.se" target="_blank">Kim Andersson</a>.</p>
+    <a href="https://kimandesson.se" target="_blank" style="color:#fff;">Kim Andersson</a>.</p>
   `;
 
   swal({
