@@ -89,7 +89,8 @@ $('#file-input').change(function() {
         questions.push({ question: lines[i], answer: lines[i + 1] });
       }
     }
-    alert("Frågor inlästa: " + questions.length);
+    //alert("Frågor inlästa: " + questions.length);
+    swal("Frågor inlästa", "Antal frågor: " + questions.length);
   };
   reader.readAsText(file);
 });
