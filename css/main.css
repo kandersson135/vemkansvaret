@@ -23,6 +23,12 @@ h1 {
   position: absolute;
   top: 0px;
   left: 20px;
+  /* text-shadow: 1px 1px #e6b800, 2px 2px #e6b800; */
+}
+
+h1:hover {
+  transform: rotate(-3deg);
+  transition: 0.2s;
 }
 
 .container {
@@ -103,7 +109,13 @@ button {
 }
 
 button:hover {
-  background-color: #e6b800;
+  /* background-color: #e6b800; */
+  transform: scale(103%);
+  transition: 0.2s;
+}
+
+button:active {
+  transform: scale(100%);
 }
 
 input {
@@ -173,5 +185,4 @@ input {
   padding: 5px 20px;
 }
 .swal-button:focus {box-shadow:none;}
-.swal-button:hover {background-color: #e6b800 !important;}
-.swal-button:active {background-color: #e6b800; box-shadow:none; position:relative; top:2px;}
+.swal-button:hover {background-color: #ffcc00 !important;}
