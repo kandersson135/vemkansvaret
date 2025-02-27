@@ -58,13 +58,23 @@ $(document).on('click', '.remove-points', function() {
 });
 
 $(document).on('click', '.team', function(event) {
+  // Om klicket är på plus- eller minusknapparna, gör inget
   if ($(event.target).hasClass('add-points') || $(event.target).hasClass('remove-points')) {
     return;
   }
+
   let teamId = $(this).attr('id');
-  if (confirm("Vill du ta bort detta lag?")) {
-    $(`#${teamId}`).remove();
-  }
+
+  // SweetAlert för att bekräfta borttagning
+  swal({
+    title: "Är du säker?",
+    text: "Vill du ta bort detta lag?",
+    buttons: ["Avbryt", "Ja, ta bort"],
+  }).then((willDelete) => {
+    if (willDelete) {
+      $(`#${teamId}`).remove();
+    }
+  });
 });
 
 $('#load-questions').click(function() {
@@ -115,7 +125,7 @@ $('#helpButton').on('click', function() {
 
     <pre>Fråga<br>Svar<br>Fråga<br>Svar<br>...</pre>
 
-    <p>Frågorna tas från dokumentet i slumpad ordning.</p>
+    <p>Frågorna presenteras i slumpad ordning.</p>
   `;
 
   swal({
