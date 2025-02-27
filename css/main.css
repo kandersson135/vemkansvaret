@@ -181,9 +181,8 @@ input {
   border-radius: 5px;
   color: #000;
   font-family: 'Open Sans', sans-serif;
-  font-weight: bold;
-  font-size: 18px;
-  padding: 5px 20px;
+  font-size: 16px;
+  padding: 10px 20px;
 }
 .swal-button:focus {box-shadow:none;}
 .swal-button:hover {background-color: #ffcc00 !important;}
