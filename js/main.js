@@ -107,13 +107,15 @@ $('#helpButton').on('click', function() {
   var helphtml = document.createElement("div");
   helphtml.style.textAlign = "left";
   helphtml.innerHTML = `
-    <p>Lägg till tävlande genom att trycka på <strong>'Lägg till'</strong>-knappen.
-    Tryck på ett lagnamn för att ta bort det från listan.</p>
+    <p>Lägg till tävlande genom att trycka på <strong>"Lägg till"</strong>-knappen.
+    Tryck på ett lagnamn för att ta bort det från listan. Klicka på plus- eller minusknappen för att öka eller minska poängen.</p>
 
     <p>Ladda upp egna frågor och svar från ett textdokument. Dokumentet ska vara
     formaterat så att varje fråga och svar skrivs på en egen rad utan extra mellanrum:</p>
 
     <pre>Fråga<br>Svar<br>Fråga<br>Svar<br>...</pre>
+
+    <p>Frågorna tas från dokumentet i slumpad ordning.</p>
   `;
 
   swal({
