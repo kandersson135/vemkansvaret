@@ -17,6 +17,16 @@ $('#muteBtn').click(function() {
   }
 });
 
+// Varna användaren innan flikstängning
+let gameIsActive = false;
+$(window).on('beforeunload', function(e) {
+  if (gameIsActive) {
+    e.preventDefault();
+    e.returnValue = '';
+  }
+  // Om gameIsActive är false händer inget, ingen varning visas
+});
+
 function getRandomQuestion() {
   if (questions.length === 0) return null;
   let index = Math.floor(Math.random() * questions.length);
@@ -44,6 +54,8 @@ $('.question-box').click(function() {
 });
 
 $('#add-team').click(function() {
+  gameIsActive = true;
+
   let teamName = $('#team-name').val().trim();
   if (teamName) {
     let teamId = 'team-' + teamName.replace(/\s+/g, '-').toLowerCase();
@@ -116,6 +128,7 @@ $('#file-input').change(function() {
     }
     //alert("Frågor inlästa: " + questions.length);
     swal("Frågor inlästa", "Antal frågor: " + questions.length);
+    gameIsActive = true;
   };
   reader.readAsText(file);
 });
