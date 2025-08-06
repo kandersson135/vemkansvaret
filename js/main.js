@@ -1,6 +1,9 @@
+// === Hela main.js med localStorage ===
+
 let questions = [];
 let usedQuestions = [];
 let currentQuestion = null;
+let gameIsActive = false;
 
 let lobbyAudio = new Audio('audio/lobby.mp3');
 lobbyAudio.volume = 0.3;
@@ -10,22 +13,53 @@ lobbyAudio.play();
 $('#muteBtn').click(function() {
   if (lobbyAudio.muted) {
     lobbyAudio.muted = false;
-    $(this).text('🔊');  // Ljud på
+    $(this).text('🔊');
   } else {
     lobbyAudio.muted = true;
-    $(this).text('🔇');  // Ljud av
+    $(this).text('🔇');
   }
 });
 
-// Varna användaren innan flikstängning
-let gameIsActive = false;
 $(window).on('beforeunload', function(e) {
   if (gameIsActive) {
     e.preventDefault();
     e.returnValue = '';
   }
-  // Om gameIsActive är false händer inget, ingen varning visas
 });
+
+function saveGameData() {
+  let teams = [];
+  $('.team').each(function() {
+    let name = $(this).find('.team-name').text();
+    let score = parseInt($(this).find('.score').text());
+    teams.push({ name, score });
+  });
+
+  localStorage.setItem('teams', JSON.stringify(teams));
+  localStorage.setItem('questions', JSON.stringify(questions));
+  localStorage.setItem('usedQuestions', JSON.stringify(usedQuestions));
+}
+
+function loadGameData() {
+  let storedTeams = JSON.parse(localStorage.getItem('teams') || '[]');
+  storedTeams.forEach(team => {
+    let teamId = 'team-' + team.name.replace(/\s+/g, '-').toLowerCase();
+    $('#teams').append(`<div class="team" id="${teamId}"><span class="team-name">${team.name}</span>: <span class="score">${team.score}</span>
+    <br>
+      <button class="add-points" data-team="${teamId}">+</button>
+      <button class="remove-points" data-team="${teamId}">-</button>
+    </div>`);
+  });
+
+  questions = JSON.parse(localStorage.getItem('questions') || '[]');
+  usedQuestions = JSON.parse(localStorage.getItem('usedQuestions') || '[]');
+
+  if (storedTeams.length || questions.length) {
+    gameIsActive = true;
+  }
+}
+
+loadGameData();
 
 function getRandomQuestion() {
   if (questions.length === 0) return null;
@@ -40,6 +74,7 @@ $('#new-question').click(function() {
   }
   currentQuestion = getRandomQuestion();
   usedQuestions.push(currentQuestion);
+  saveGameData();
   $('.question-box').fadeOut(200, function() {
     $(this).text(currentQuestion.question).fadeIn(200);
   });
@@ -55,7 +90,6 @@ $('.question-box').click(function() {
 
 $('#add-team').click(function() {
   gameIsActive = true;
-
   let teamName = $('#team-name').val().trim();
   if (teamName) {
     let teamId = 'team-' + teamName.replace(/\s+/g, '-').toLowerCase();
@@ -65,6 +99,7 @@ $('#add-team').click(function() {
         <button class="add-points" data-team="${teamId}">+</button>
         <button class="remove-points" data-team="${teamId}">-</button>
       </div>`);
+      saveGameData();
     }
     $('#team-name').val("");
   }
@@ -75,6 +110,7 @@ $(document).on('click', '.add-points', function() {
   let scoreElement = $(`#${teamId} .score`);
   let currentScore = parseInt(scoreElement.text());
   scoreElement.text(currentScore + 10);
+  saveGameData();
 });
 
 $(document).on('click', '.remove-points', function() {
@@ -82,17 +118,16 @@ $(document).on('click', '.remove-points', function() {
   let scoreElement = $(`#${teamId} .score`);
   let currentScore = parseInt(scoreElement.text());
   scoreElement.text(Math.max(0, currentScore - 10));
+  saveGameData();
 });
 
 $(document).on('click', '.team', function(event) {
-  // Om klicket är på plus- eller minusknapparna, gör inget
   if ($(event.target).hasClass('add-points') || $(event.target).hasClass('remove-points')) {
     return;
   }
 
   let teamId = $(this).attr('id');
 
-  // SweetAlert för att bekräfta borttagning
   swal({
     title: "Är du säker?",
     text: "Vill du ta bort detta lag?",
@@ -100,16 +135,15 @@ $(document).on('click', '.team', function(event) {
   }).then((willDelete) => {
     if (willDelete) {
       $(`#${teamId}`).remove();
+      saveGameData();
     }
   });
 });
 
 $('#load-questions').click(function() {
-  // Triggera klick på filväljaren när knappen trycks
   $('#file-input').click();
 });
 
-// När en fil väljs från filväljaren
 $('#file-input').change(function() {
   let file = this.files[0];
   if (!file) {
@@ -126,26 +160,38 @@ $('#file-input').change(function() {
         questions.push({ question: lines[i], answer: lines[i + 1] });
       }
     }
-    //alert("Frågor inlästa: " + questions.length);
     swal("Frågor inlästa", "Antal frågor: " + questions.length);
     gameIsActive = true;
+    saveGameData();
   };
   reader.readAsText(file);
 });
 
-// prevent spam function
+$('#resetGame').click(function() {
+  swal({
+    title: "Är du säker?",
+    text: "Allt sparat innehåll kommer tas bort.",
+    buttons: ["Avbryt", "Ja, nollställ"],
+  }).then((confirm) => {
+    if (confirm) {
+      localStorage.clear();
+      location.reload();
+    }
+  });
+});
+
+// Spamskydd för e-post
 var emailAddress = "hej@kimandesson.se";
 var encodedEmail = emailAddress.split('').map(function(char) {
   return '&#' + char.charCodeAt(0) + ';';
 }).join('');
 $("#email").html('<a href="mailto:' + emailAddress + '">Kontakt</a>');
 
-// Help btn click
 $('#helpButton').on('click', function() {
   var helphtml = document.createElement("div");
   helphtml.style.textAlign = "left";
   helphtml.innerHTML = `
-    <p>Lägg till tävlande genom att trycka på <strong>"Lägg till"</strong>-knappen.
+    <p>Lägg till tävlande genom att trycka på <strong>\"Lägg till\"</strong>-knappen.
     Tryck på ett lagnamn för att ta bort det från listan. Klicka på plus- eller minusknappen för att öka eller minska poängen.</p>
 
     <p>Ladda upp egna frågor och svar från ett textdokument. Dokumentet ska vara
@@ -162,10 +208,9 @@ $('#helpButton').on('click', function() {
   });
 });
 
-// About btn click
 $('#aboutButton').on('click', function() {
   var abouthtml = document.createElement("div");
-  abouthtml.style.textAlign = "left"; // Vänsterjusterar texten
+  abouthtml.style.textAlign = "left";
   abouthtml.innerHTML = `
     <p>Webbplatsen är fortfarande under utveckling, men går att testa.
     Hör av dig om du har några funderingar.</p>
