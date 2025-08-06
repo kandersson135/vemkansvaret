@@ -2,6 +2,21 @@ let questions = [];
 let usedQuestions = [];
 let currentQuestion = null;
 
+let lobbyAudio = new Audio('audio/lobby.mp3');
+lobbyAudio.volume = 0.3;
+lobbyAudio.loop = true;
+lobbyAudio.play();
+
+$('#muteBtn').click(function() {
+  if (lobbyAudio.muted) {
+    lobbyAudio.muted = false;
+    $(this).text('🔊');  // Ljud på
+  } else {
+    lobbyAudio.muted = true;
+    $(this).text('🔇');  // Ljud av
+  }
+});
+
 function getRandomQuestion() {
   if (questions.length === 0) return null;
   let index = Math.floor(Math.random() * questions.length);
