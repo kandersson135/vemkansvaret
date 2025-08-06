@@ -1,5 +1,3 @@
-// === Hela main.js med localStorage ===
-
 let questions = [];
 let usedQuestions = [];
 let currentQuestion = null;
