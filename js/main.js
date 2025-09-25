@@ -2,7 +2,7 @@ let questions = [];
 let usedQuestions = [];
 let currentQuestion = null;
 let gameIsActive = false;
-//let firstClickDone = false;
+// let firstClickDone = false;
 
 let lobbyAudio = new Audio('audio/lobby.mp3');
 lobbyAudio.volume = 0.3;
@@ -81,7 +81,7 @@ $('#new-question').click(function() {
   $('.answer').text(currentQuestion.answer);
 
   // if (!firstClickDone) {
-  //   lobbyAudio.src = 'audio/quizstart.mp3';
+  //   lobbyAudio.src = 'audio/thinkingtime.mp3';
   //   lobbyAudio.load();
   //   lobbyAudio.play();
   //   firstClickDone = true; // Nu vet vi att ljudet är ändrat en gång
