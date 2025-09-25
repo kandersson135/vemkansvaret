@@ -2,7 +2,7 @@ let questions = [];
 let usedQuestions = [];
 let currentQuestion = null;
 let gameIsActive = false;
-// let firstClickDone = false;
+let firstClickDone = false;
 
 let lobbyAudio = new Audio('audio/lobby.mp3');
 lobbyAudio.volume = 0.3;
@@ -80,17 +80,37 @@ $('#new-question').click(function() {
   $('.answer').fadeOut(200);
   $('.answer').text(currentQuestion.answer);
 
-  // if (!firstClickDone) {
-  //   lobbyAudio.src = 'audio/thinkingtime.mp3';
-  //   lobbyAudio.load();
-  //   lobbyAudio.play();
-  //   firstClickDone = true; // Nu vet vi att ljudet är ändrat en gång
-  // }
+  // change bg audio when start
+  if (!firstClickDone) {
+    lobbyAudio.src = 'audio/thinkingtime.mp3';
+    lobbyAudio.load();
+    lobbyAudio.play();
+    firstClickDone = true; // Nu vet vi att ljudet är ändrat en gång
+  }
 });
 
 $('.question-box').click(function() {
   if (currentQuestion) {
     $('.answer').fadeToggle(300);
+  }
+});
+
+// use space to control questions and answers
+$(document).on('keydown', function(e) {
+  if (e.code === "Space" && !$("input, textarea").is(":focus")) {
+    e.preventDefault(); // förhindra att sidan scrollar
+
+    if (!currentQuestion) {
+      // Ingen fråga visad ännu → ta fram en ny fråga
+      $('#new-question').click();
+    } else if ($('.answer').is(':visible')) {
+      // Om svaret redan visas → hämta nästa fråga
+      $('.answer').hide();
+      $('#new-question').click();
+    } else {
+      // Om svaret är dolt → visa det
+      $('.question-box').click();
+    }
   }
 });
 
