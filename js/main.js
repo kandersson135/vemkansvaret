@@ -90,7 +90,7 @@ $('#new-question').click(function() {
 });
 
 $('.question-box').click(function() {
-  if (currentQuestion) {
+  if (currentQuestion && questions.length > 0) {
     $('.answer').fadeToggle(300);
   }
 });
@@ -98,17 +98,14 @@ $('.question-box').click(function() {
 // use space to control questions and answers
 $(document).on('keydown', function(e) {
   if (e.code === "Space" && !$("input, textarea").is(":focus")) {
-    e.preventDefault(); // förhindra att sidan scrollar
+    e.preventDefault();
 
-    if (!currentQuestion) {
-      // Ingen fråga visad ännu → ta fram en ny fråga
+    if (!currentQuestion && questions.length > 0) {
       $('#new-question').click();
-    } else if ($('.answer').is(':visible')) {
-      // Om svaret redan visas → hämta nästa fråga
+    } else if ($('.answer').is(':visible') && questions.length > 0) {
       $('.answer').hide();
       $('#new-question').click();
-    } else {
-      // Om svaret är dolt → visa det
+    } else if ($('.answer').is(':hidden') && questions.length > 0) {
       $('.question-box').click();
     }
   }
