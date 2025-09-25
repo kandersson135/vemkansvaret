@@ -45,8 +45,8 @@ function loadGameData() {
     let teamId = 'team-' + team.name.replace(/\s+/g, '-').toLowerCase();
     $('#teams').append(`<div class="team" id="${teamId}"><span class="team-name">${team.name}</span>: <span class="score">${team.score}</span>
     <br>
-      <button class="add-points" data-team="${teamId}">+</button>
       <button class="remove-points" data-team="${teamId}">-</button>
+      <button class="add-points" data-team="${teamId}">+</button>
     </div>`);
   });
 
@@ -102,8 +102,8 @@ $('#add-team').click(function() {
     if ($(`#${teamId}`).length === 0) {
       $('#teams').append(`<div class="team" id="${teamId}"><span class="team-name">${teamName}</span>: <span class="score">0</span>
       <br>
-        <button class="add-points" data-team="${teamId}">+</button>
         <button class="remove-points" data-team="${teamId}">-</button>
+        <button class="add-points" data-team="${teamId}">+</button>
       </div>`);
       saveGameData();
     }
